@@ -26,7 +26,6 @@ class ViewController: UIViewController {
             } else {
                 display.text = " "
             }
-            
             isUserInMiddleOfNumberTyping = false
         }
     }
@@ -87,6 +86,9 @@ class ViewController: UIViewController {
         }
         if let operation = sender.currentTitle {
             displayValue = brain.performOperation(operation)
+            if displayValue != nil {
+                display.text = "\(brain)=\(displayValue!)"
+            }
         }
         print("brain : \(brain)")
     }
