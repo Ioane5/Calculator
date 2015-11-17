@@ -19,15 +19,29 @@ class ViewController: UIViewController {
     var displayValue: Double? {
         get {
             return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
+            
         }
         set {
             if newValue != nil{
-                display.text = "\(newValue!)"
+                display.text = "\(brain)=\(newValue!)"
             } else {
-                display.text = " "
+                display.text = "\(brain)= err"
             }
             isUserInMiddleOfNumberTyping = false
         }
+    }
+    
+    @IBAction func setM() {
+        if displayValue != nil {
+            brain.variableValues["M"] = displayValue!
+        }
+    }
+    
+    @IBAction func useM() {
+        if isUserInMiddleOfNumberTyping {
+            enter()
+        }
+        brain.pushOperand("M")
     }
     
     @IBAction func ChangeSign() {
@@ -50,10 +64,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func enter() {
-        isUserInMiddleOfNumberTyping = false
-        if displayValue != nil{
-            displayValue = brain.pushOperand(displayValue!)
+        if !isUserInMiddleOfNumberTyping {
+            displayValue = brain.evaluate()
+        } else {
+            if displayValue != nil {
+                displayValue = brain.pushOperand(displayValue!)
+            }
         }
+        isUserInMiddleOfNumberTyping = false
         print("brain : \(brain)")
     }
     
@@ -72,6 +90,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func ClearLast() {
+        if !isUserInMiddleOfNumberTyping {
+            return
+        }
         if display.text?.characters.count <= 1 {
             display.text = "0"
             isUserInMiddleOfNumberTyping = false
@@ -86,9 +107,6 @@ class ViewController: UIViewController {
         }
         if let operation = sender.currentTitle {
             displayValue = brain.performOperation(operation)
-            if displayValue != nil {
-                display.text = "\(brain)=\(displayValue!)"
-            }
         }
         print("brain : \(brain)")
     }

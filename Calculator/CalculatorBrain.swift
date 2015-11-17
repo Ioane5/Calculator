@@ -73,7 +73,7 @@ class CalculatorBrain : CustomStringConvertible{
             case .BinaryOperation:
                 let descriptionEval1 = evaluateDescription(remainingOps)
                 let descriptionEval2 = evaluateDescription(descriptionEval1.remainingOps)
-                description = "\(descriptionEval2.result)\(op)\(descriptionEval1.result)"
+                description = "(\(descriptionEval2.result)\(op)\(descriptionEval1.result))"
                 remainingOps = descriptionEval2.remainingOps
             case .Operand:
                 fallthrough
