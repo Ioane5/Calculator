@@ -9,18 +9,39 @@
 import Foundation
 
 
-class CalculatorBrain {
+class CalculatorBrain : CustomStringConvertible{
     
     
     private var opStack = [Op]()
     
     private var knownOps = [String:Op]()
+    private var reverseOps = [String]()
     
-    private enum Op{
+    var variableValues = [String:Double]()
+    
+    private enum Op : CustomStringConvertible{
         case Operand(Double)
         case UnaryOperation(String,Double -> Double)
         case BinaryOperation(String,(Double,Double)->Double)
         case Constant(String,Double)
+        case Variable(String)
+        
+        var description : String{
+            get {
+                switch self {
+                case .Operand(let operand):
+                    return "\(operand)"
+                case .UnaryOperation(let symbol,_):
+                    return symbol
+                case .BinaryOperation(let symbol,_):
+                    return symbol
+                case .Constant(let constantName,_):
+                    return constantName
+                case .Variable(let symbol):
+                    return symbol
+                }
+            }
+        }
     }
     
     
@@ -33,8 +54,40 @@ class CalculatorBrain {
         knownOps["cos"] = Op.UnaryOperation("cos",cos)
         knownOps["√"] = Op.UnaryOperation("√",sqrt)
         knownOps["π"] = Op.Constant("π",M_PI)
+        reverseOps.append("÷")
+        reverseOps.append("−")
     }
     
+    private func evaluateDescription(ops : [Op]) -> (result: String, remainingOps:[Op]) {
+        if !ops.isEmpty {
+            var remainingOps = ops
+            let op = remainingOps.removeLast()
+            
+            var description : String
+            switch op {
+            case .UnaryOperation:
+                let descriptionEval = evaluateDescription(remainingOps)
+                description = "\(op)(\(descriptionEval.result))"
+                remainingOps = descriptionEval.remainingOps
+                break
+            case .BinaryOperation:
+                let descriptionEval1 = evaluateDescription(remainingOps)
+                let descriptionEval2 = evaluateDescription(descriptionEval1.remainingOps)
+                description = "\(descriptionEval2.result)\(op)\(descriptionEval1.result)"
+                remainingOps = descriptionEval2.remainingOps
+            case .Operand:
+                fallthrough
+            case .Constant:
+                fallthrough
+            case .Variable:
+                description = "\(op)"
+                break
+            }
+            return (description,remainingOps)
+            
+        }
+        return ("?",ops)
+    }
     
     private  func evaluate(ops : [Op]) -> (result: Double?,remainingOps:[Op ]) {
         
@@ -61,6 +114,10 @@ class CalculatorBrain {
                 }
             case .Constant(_, let constant):
                 return (constant,remainingOps)
+            case .Variable(let varName):
+                if let varValue = variableValues[varName] {
+                    return (varValue,remainingOps)
+                }
             }
         }
         return (nil,ops)
@@ -68,6 +125,7 @@ class CalculatorBrain {
     
     func clearAll() {
         opStack.removeAll()
+        variableValues.removeAll()
     }
     
     func evaluate() ->Double? {
@@ -75,17 +133,38 @@ class CalculatorBrain {
         return result
     }
     
-    func pushOperand(operand:Double) -> Double?{
+    func pushOperand(operand:Double) -> Double? {
         opStack.append(Op.Operand(operand))
         return evaluate()
     }
     
-    func performOperation(symbol:String) -> Double?{
-        print("opstack \(opStack) --- \(knownOps)")
+    func pushOperand(symbol: String) -> Double? {
+        opStack.append(.Variable(symbol))
+        return evaluate()
+    }
+    
+    func performOperation(symbol:String) -> Double? {
         if let op = knownOps[symbol] {
             opStack.append(op)
         }
         return evaluate()
+    }
+    
+    var description : String{
+        get {
+            var history = [String]()
+            var remainingOps = opStack
+            while true {
+                let evaluated = evaluateDescription(remainingOps)
+                history.append(evaluated.result)
+                remainingOps = evaluated.remainingOps
+                if remainingOps.isEmpty {
+                    break
+                }
+            }
+            return history.joinWithSeparator(",")
+        }
+    
     }
     
 }

@@ -55,6 +55,7 @@ class ViewController: UIViewController {
         if displayValue != nil{
             displayValue = brain.pushOperand(displayValue!)
         }
+        print("brain : \(brain)")
     }
     
     @IBAction func AppendDot() {
@@ -87,6 +88,7 @@ class ViewController: UIViewController {
         if let operation = sender.currentTitle {
             displayValue = brain.performOperation(operation)
         }
+        print("brain : \(brain)")
     }
 }
 
