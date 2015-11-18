@@ -60,6 +60,9 @@ class CalculatorViewController: UIViewController {
             display.text = digit
         }
         isUserInMiddleOfNumberTyping = true
+        if display.text == "0" {
+            isUserInMiddleOfNumberTyping = false
+        }
     }
     
     
@@ -78,8 +81,9 @@ class CalculatorViewController: UIViewController {
     @IBAction func AppendDot() {
         let currentStr = display.text;
         let index = display.text?.rangeOfString(".")
-        if index == nil{
+        if index == nil {
             display.text = currentStr! + "."
+            isUserInMiddleOfNumberTyping = true
         }
     }
     
