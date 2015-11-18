@@ -37,6 +37,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B167F8B1BFD0CAB00B63F2D /* unused files */ = {
+			isa = PBXGroup;
+			children = (
+				3B1A64E91BE247A400A11175 /* Info.plist */,
+				3B1A64DD1BE247A400A11175 /* AppDelegate.swift */,
+				3B1A64E41BE247A400A11175 /* Assets.xcassets */,
+				3B1A64E61BE247A400A11175 /* LaunchScreen.storyboard */,
+			);
+			name = "unused files";
+			sourceTree = "<group>";
+		};
 		3B1A64D11BE247A400A11175 = {
 			isa = PBXGroup;
 			children = (
@@ -57,12 +68,9 @@
 			isa = PBXGroup;
 			children = (
 				3B1A64DF1BE247A400A11175 /* ViewController.swift */,
-				3B1A64E11BE247A400A11175 /* Main.storyboard */,
-				3B1A64E41BE247A400A11175 /* Assets.xcassets */,
-				3B1A64DD1BE247A400A11175 /* AppDelegate.swift */,
-				3B1A64E61BE247A400A11175 /* LaunchScreen.storyboard */,
-				3B1A64E91BE247A400A11175 /* Info.plist */,
 				3B7B1C411BFB626500271459 /* CalculatorBrain.swift */,
+				3B1A64E11BE247A400A11175 /* Main.storyboard */,
+				3B167F8B1BFD0CAB00B63F2D /* unused files */,
 			);
 			path = Calculator;
 			sourceTree = "<group>";

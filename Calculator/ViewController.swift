@@ -19,13 +19,12 @@ class ViewController: UIViewController {
     var displayValue: Double? {
         get {
             return NSNumberFormatter().numberFromString(display.text!)?.doubleValue
-            
         }
         set {
             if newValue != nil{
                 display.text = "\(brain)=\(newValue!)"
             } else {
-                display.text = "\(brain)= err"
+                display.text = "\(brain)= ?"
             }
             isUserInMiddleOfNumberTyping = false
         }
@@ -35,6 +34,7 @@ class ViewController: UIViewController {
         if displayValue != nil {
             brain.variableValues["M"] = displayValue!
         }
+        isUserInMiddleOfNumberTyping = false
     }
     
     @IBAction func useM() {

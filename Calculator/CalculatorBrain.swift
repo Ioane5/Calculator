@@ -162,7 +162,7 @@ class CalculatorBrain : CustomStringConvertible{
                     break
                 }
             }
-            return history.joinWithSeparator(",")
+            return history.reverse().joinWithSeparator(",")
         }
     
     }
