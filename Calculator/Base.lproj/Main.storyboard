@@ -542,6 +542,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="color">
                                 <color key="value" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
@@ -553,6 +554,11 @@
                                 <point key="value" x="0.0" y="0.0"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="8ao-aJ-mXd" appends="YES" id="KyE-Dd-OuQ"/>
+                            <outletCollection property="gestureRecognizers" destination="gA4-2x-YOf" appends="YES" id="mam-N7-T3b"/>
+                            <outletCollection property="gestureRecognizers" destination="mHf-2a-VTI" appends="YES" id="9Ct-Kc-OLI"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="RM8-dx-cEJ"/>
                     <connections>
@@ -560,6 +566,21 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ALt-D2-8P0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="8ao-aJ-mXd">
+                    <connections>
+                        <action selector="ActionPinch:" destination="zDH-BG-C8l" id="MCl-p1-0xT"/>
+                    </connections>
+                </pinchGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="gA4-2x-YOf">
+                    <connections>
+                        <action selector="ActionPan:" destination="zDH-BG-C8l" id="amf-wA-lCe"/>
+                    </connections>
+                </panGestureRecognizer>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="mHf-2a-VTI">
+                    <connections>
+                        <action selector="ActionTap:" destination="zDH-BG-C8l" id="FNA-qR-9rD"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1321" y="1130"/>
         </scene>
