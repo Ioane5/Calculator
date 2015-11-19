@@ -114,5 +114,38 @@ class CalculatorViewController: UIViewController {
         }
         print("brain : \(brain)")
     }
+    
+    
+    func memEvaluator(mValue : Double) -> Double? {
+        let variableValueCopy = brain.variableValues
+        brain.variableValues["M"] = mValue
+        let ans = brain.evaluate()
+        // return old varialeValues
+        brain.variableValues = variableValueCopy
+        return ans
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination : UIViewController? = segue.destinationViewController as UIViewController
+        if let navCon = destination as? UINavigationController{
+            destination = navCon.visibleViewController
+        }
+        if let gvc = destination as? GraphViewController {
+            if let segueIdentifier = segue.identifier {
+                switch segueIdentifier {
+                case "Show graph":
+                    gvc.graphFunction = memEvaluator
+                    gvc.graphDescription = brain.description.componentsSeparatedByString(",").last
+                    break
+                default:
+                    gvc.graphFunction = nil
+                    gvc.graphDescription = nil
+                    break
+                }
+            }
+        }
+        
+    }
 }
 

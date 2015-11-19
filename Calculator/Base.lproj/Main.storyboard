@@ -547,7 +547,7 @@
                                 <color key="value" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="scale">
-                                <real key="value" value="2"/>
+                                <real key="value" value="40"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="point" keyPath="origin">
                                 <point key="value" x="0.0" y="0.0"/>
@@ -555,6 +555,9 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <navigationItem key="navigationItem" title="Graph" id="RM8-dx-cEJ"/>
+                    <connections>
+                        <outlet property="graphView" destination="pai-Qt-U3K" id="urG-fY-IF8"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ALt-D2-8P0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
